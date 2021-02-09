@@ -10,6 +10,10 @@ import java.util.Scanner;
 public class Contact_Manage_Program {
     public static void main(String[] args) throws IOException {
 
+        String name="";
+        name= " "+ "hi";
+        System.out.println(name);
+
         Path dataDirectory = Paths.get("contacts.text");
         if (! Files.exists(dataDirectory)) {
             Files.createFile(dataDirectory);
@@ -51,6 +55,7 @@ public class Contact_Manage_Program {
             System.out.println("I'm sorry, you must enter a number, please try again.");
         }
         } while (true);
+
 
     }
 }
