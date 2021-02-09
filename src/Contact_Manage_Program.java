@@ -1,7 +1,23 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Contact_Manage_Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        Path dataDirectory = Paths.get("contacts.text");
+        if (! Files.exists(dataDirectory)) {
+            Files.createFile(dataDirectory);
+            List<String> contactsMenu = Arrays.asList("Name | Phone number");
+            Files.write(dataDirectory, contactsMenu);
+        }
+
+
         do {
         System.out.println("1. View contacts.\n" +
         "2. Add a new contact.\n" +
@@ -13,13 +29,13 @@ public class Contact_Manage_Program {
         String s = in.nextLine().trim();
         try {int menu = Integer.valueOf(s);
         if (menu == 1) {
-            System.out.println("You have selected view contacts, but it isn't implemented yet.");
+            Contact.getContacts(dataDirectory);
         }
         else if(menu == 2) {
-            System.out.println("You have selected Add a new contact, but it isn't implemented yet.");
+            Contact.addContact(dataDirectory);
         }
         else if (menu == 3) {
-            System.out.println("You have selected Search a contact by name, but it isn't implemented yet.");
+            Contact.searchContacts(dataDirectory);
         }
         else if (menu == 4) {
             System.out.println("You have selected Delete an existing contact, but it isn't implemented yet.");
