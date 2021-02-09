@@ -37,6 +37,8 @@ public class Contact {
     private String name;
     private int number;
 
+
+
     public static void getContacts(Path dataDirectory) throws IOException {
         Scanner in = new Scanner(System.in);
         List<String> contacts = Files.readAllLines(dataDirectory);
@@ -56,10 +58,93 @@ public class Contact {
         System.out.println("Enter the name of the contact you want to add.");
         String contactName = in.nextLine();
         System.out.println("Enter the phone number of the contact you want to add.");
-        String phoneNumber = in.nextLine();
-        String newContact = contactName + "  |  "+phoneNumber;
-        List<String> contactsMenu = Arrays.asList(newContact);
-        Files.write(dataDirectory, contactsMenu, StandardOpenOption.APPEND);
+        String phoneNumberDigits = in.nextLine();
+        String phoneNumber="";
+        //Will check to make sure phone number is either 7 or 10 digits, and will add hyphens accordingly.
+        if (phoneNumberDigits.length()!=7&&phoneNumberDigits.length()!=10){
+            System.out.println("Phone number was not 7 or 10 digits, re-enter contact with a valid number");
+            addContact(dataDirectory);
+        }else {
+            if (phoneNumberDigits.length() == 7) {
+                for (int i = 0; i < phoneNumberDigits.length(); i++) {
+                    phoneNumber += phoneNumberDigits.charAt(i);
+                    if (i == 2) {
+                        phoneNumber += "-";
+                    }
+                }
+            } else {
+                for (int i = 0; i < phoneNumberDigits.length(); i++) {
+                    phoneNumber += phoneNumberDigits.charAt(i);
+                    if (i == 2 || i == 5) {
+                        phoneNumber += "-";
+                    }
+                }
+            }
+
+            //The code below will create a string containing the name, phone number, and equal spacing to center names and numbers.
+            String newContact = "";
+            double contactNameSpaces = 20 - contactName.length();
+            double phoneNumberLength = 20 - phoneNumber.length();
+            if (contactNameSpaces % 2 == 0) {
+                for (int i = 0; i <= contactNameSpaces / 2; i++) {
+                    newContact += " ";
+                }
+                newContact += contactName;
+                for (int i = 0; i <= contactNameSpaces / 2; i++) {
+                    newContact += " ";
+                }
+            } else {
+                for (int i = 0; i <= (contactNameSpaces / 2 + .5); i++) {
+                    newContact += " ";
+                }
+                newContact += contactName;
+                for (int i = 0; i <= (contactNameSpaces / 2 - .5); i++) {
+                    newContact += " ";
+                }
+            }
+            newContact += "|";
+
+            if (phoneNumberLength % 2 == 0) {
+                for (int i = 0; i <= phoneNumberLength / 2; i++) {
+                    newContact += " ";
+                }
+                newContact += phoneNumber;
+                for (int i = 0; i <= phoneNumberLength / 2; i++) {
+                    newContact += " ";
+                }
+            } else {
+                for (int i = 0; i <= (phoneNumberLength / 2 + .5); i++) {
+                    newContact += " ";
+                }
+                newContact += phoneNumber;
+                for (int i = 0; i <= (phoneNumberLength / 2 - .5); i++) {
+                    newContact += " ";
+                }
+            }
+
+            List<String> contacts = Files.readAllLines(dataDirectory);
+            int Count = 0;
+            for (int i = 0; i < contacts.size(); i++) {
+                if (contacts.get(i).toLowerCase().contains(contactName.toLowerCase())) {
+                    System.out.println(contacts.get(i));
+                    Count++;
+
+                }
+            }
+            if (Count > 0) {
+                System.out.printf("There's already a contact named %s. Do you want to overwrite it? (Yes/No)\n", contactName);
+                String feedback = in.nextLine();
+                if (feedback.equalsIgnoreCase("no")) {
+                    addContact(dataDirectory);
+                } else {
+                    List<String> contactsMenu = Arrays.asList(newContact);
+                    Files.write(dataDirectory, contactsMenu, StandardOpenOption.APPEND);
+                }
+            } else {
+                List<String> contactsMenu = Arrays.asList(newContact);
+                Files.write(dataDirectory, contactsMenu, StandardOpenOption.APPEND);
+            }
+        }
     }
 
     public static void searchContacts(Path dataDirectory) throws IOException {
