@@ -38,7 +38,7 @@ public class Contact_Manage_Program {
             Contact.searchContacts(dataDirectory);
         }
         else if (menu == 4) {
-            System.out.println("You have selected Delete an existing contact, but it isn't implemented yet.");
+            Contact.deleteContacts(dataDirectory);
         }
         else if (menu == 5) {
             System.out.println("Thank you, goodbye.");
