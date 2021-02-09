@@ -41,7 +41,9 @@ public class Contact {
         Scanner in = new Scanner(System.in);
         List<String> contacts = Files.readAllLines(dataDirectory);
         for (int i = 0; i < contacts.size(); i += 1) {
+            String spaces;
             if (i==0){
+                System.out.println(contacts.get(i));
                 continue;
             }
             System.out.println((i) + ": " + contacts.get(i));
@@ -84,6 +86,24 @@ public class Contact {
 
 
     }
+
+    public static void deleteContacts(Path dataDirectory) throws IOException {
+        Scanner in = new Scanner(System.in);
+        List<String> contacts = Files.readAllLines(dataDirectory);
+        for (int i = 0; i < contacts.size(); i += 1) {
+            if (i == 0) {
+                System.out.println(contacts.get(i));
+                continue;
+            }
+            System.out.println((i) + ": " + contacts.get(i));
+        }
+            System.out.println("Enter the number of the contact you would you like to delete?");
+            String s = in.nextLine();
+            int input = Integer.valueOf(s);
+            contacts.remove(input);
+            Files.write(dataDirectory, contacts);
+
+        }
 
 
 }
