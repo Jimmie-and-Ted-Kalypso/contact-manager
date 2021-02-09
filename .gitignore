@@ -4,7 +4,7 @@
 # CodeStream ignored files
 /../../contact-manager\.idea/codestream.xml
 # Datasource local storage ignored files
-/../../../../:\Idea Projects\contact-manager\.idea/dataSources/
+\Idea Projects\contact-manager\.
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
