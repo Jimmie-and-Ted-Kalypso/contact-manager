@@ -1,0 +1,83 @@
+Index: src/Contact.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.io.IOException;\r\nimport java.nio.file.Files;\r\nimport java.nio.file.Path;\r\nimport java.nio.file.StandardOpenOption;\r\nimport java.util.ArrayList;\r\nimport java.util.Arrays;\r\nimport java.util.List;\r\nimport java.util.Scanner;\r\n\r\npublic class Contact {\r\n\r\n    Contact (String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    Contact (String name,int number) {\r\n        this.name = name;\r\n        this.number = number;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public int getNumber() {\r\n        return number;\r\n    }\r\n\r\n    public void setNumber(int number) {\r\n        this.number = number;\r\n    }\r\n\r\n    private String name;\r\n    private int number;\r\n\r\n    public static void getContacts(Path dataDirectory) throws IOException {\r\n        Scanner in = new Scanner(System.in);\r\n        List<String> contacts = Files.readAllLines(dataDirectory);\r\n        for (int i = 0; i < contacts.size(); i += 1) {\r\n            if (i==0){\r\n                continue;\r\n            }\r\n            System.out.println((i) + \": \" + contacts.get(i));\r\n        }\r\n        System.out.println(\"\\nHit enter to return to home screen\");\r\n        in.nextLine();\r\n    }\r\n    public static void addContact(Path dataDirectory) throws IOException {\r\n        Scanner in = new Scanner(System.in);\r\n        System.out.println(\"Enter the name of the contact you want to add.\");\r\n        String contactName = in.nextLine();\r\n        System.out.println(\"Enter the phone number of the contact you want to add.\");\r\n        String phoneNumber = in.nextLine();\r\n        String newContact = contactName + \"  |  \"+phoneNumber;\r\n        List<String> contactsMenu = Arrays.asList(newContact);\r\n        Files.write(dataDirectory, contactsMenu, StandardOpenOption.APPEND);\r\n    }\r\n\r\n    public static void searchContacts(Path dataDirectory) throws IOException {\r\n        Scanner in = new Scanner(System.in);\r\n        System.out.println(\"Enter a contact name to search for.\");\r\n        String contactName = in.nextLine();\r\n        List<String> contacts = Files.readAllLines(dataDirectory);\r\n        int Count =0;\r\n        for (int i=0; i<contacts.size(); i++){\r\n            if (contacts.get(i).toLowerCase().contains(contactName.toLowerCase())){\r\n                System.out.println(contacts.get(i));\r\n                Count++;\r\n\r\n            }\r\n        }\r\n        if (Count==0) {\r\n            System.out.println(\"No contact of that name found\");\r\n        }\r\n        System.out.println(\"\\nHit enter to return to main menu\");\r\n        in.nextLine();\r\n\r\n\r\n\r\n\r\n\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Contact.java b/src/Contact.java
+--- a/src/Contact.java	(revision 5567e5d2190ba34ea09400cc9738faed53fff38e)
++++ b/src/Contact.java	(date 1613060064843)
+@@ -18,6 +18,27 @@
+         this.number = number;
+     }
+ 
++    Contact (String name,int number,String email) {
++        this.name = name;
++        this.number = number;
++        this.email = email;
++    }
++
++    Contact (String name, int number, String email, String address) {
++        this.name = name;
++        this.number = number;
++        this.email = email;
++        this.address = address;
++    }
++
++    Contact (String name, int number, String email, String address, int zip) {
++        this.name = name;
++        this.number = number;
++        this.email = email;
++        this.address = address;
++        this.zip = zip;
++    }
++
+     public String getName() {
+         return name;
+     }
+@@ -36,6 +57,9 @@
+ 
+     private String name;
+     private int number;
++    private String email;
++    private String address;
++    private int zip;
+ 
+     public static void getContacts(Path dataDirectory) throws IOException {
+         Scanner in = new Scanner(System.in);
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"false\" project-jdk-name=\"sapmachine-11\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 5567e5d2190ba34ea09400cc9738faed53fff38e)
++++ b/.idea/misc.xml	(date 1613060064626)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="sapmachine-11" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" project-jdk-name="adopt-openj9-11" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: contacts.text
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Name | Phone number\r\nJimmie McBride  |  1234567890\r\nTed McCormick  |  1111169420\r\nPatrick Mahomes  |  151515151\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/contacts.text b/contacts.text
+--- a/contacts.text	(revision 5567e5d2190ba34ea09400cc9738faed53fff38e)
++++ b/contacts.text	(date 1613060134980)
+@@ -2,3 +2,5 @@
+ Jimmie McBride  |  1234567890
+ Ted McCormick  |  1111169420
+ Patrick Mahomes  |  151515151
++Billy Bob Thornberry  |  2023039845
++Dookie Houser  |  4108950432

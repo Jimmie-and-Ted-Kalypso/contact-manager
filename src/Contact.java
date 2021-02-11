@@ -18,6 +18,27 @@ public class Contact {
         this.number = number;
     }
 
+    Contact (String name,int number,String email) {
+        this.name = name;
+        this.number = number;
+        this.email = email;
+    }
+
+    Contact (String name, int number, String email, String address) {
+        this.name = name;
+        this.number = number;
+        this.email = email;
+        this.address = address;
+    }
+
+    Contact (String name, int number, String email, String address, int zip) {
+        this.name = name;
+        this.number = number;
+        this.email = email;
+        this.address = address;
+        this.zip = zip;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,6 +57,9 @@ public class Contact {
 
     private String name;
     private int number;
+    private String email;
+    private String address;
+    private int zip;
 
 
 
@@ -49,6 +73,7 @@ public class Contact {
                 continue;
             }
             System.out.println((i) + ": " + contacts.get(i));
+//            Contact i = new Contact(i, contacts.get(i)):
         }
         System.out.println("\nHit enter to return to home screen");
         in.nextLine();
